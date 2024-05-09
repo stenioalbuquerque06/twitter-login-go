@@ -43,10 +43,12 @@ func (c *Client) GetAuthURL(callback string) (string, error) {
 	return url, nil
 }
 
-func (c *Client) GetAccessToken(oauthToken string, oauthVerifier string) (string, error) {
-	if c.tempCred == nil || c.tempCred.Token != oauthToken {
-		return "", ErrInvalidRequest
+func (c *Client) GetAccessToken(oauthToken string, oauthVerifier string, tempToken string, tempSecret string) (string, error) {
+	c.tempCred = &oauth.Credentials{
+		Token:  tempToken,
+		Secret: tempSecret,
 	}
+
 	cred, _, err := c.cli.RequestToken(nil, c.tempCred, oauthVerifier)
 	c.cred = cred
 	return cred.Token, err
