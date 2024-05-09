@@ -3,7 +3,7 @@ package twitter
 type (
 	// twttier user
 	User struct {
-		ID    uint32 `json:"id"`
+		ID    uint64 `json:"id"`
 		IDStr string `json:"id_str"`
 		Name  string `json:"name"`
 		// screen name
