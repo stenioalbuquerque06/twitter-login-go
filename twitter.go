@@ -33,14 +33,14 @@ type Client struct {
 	cred      *oauth.Credentials
 }
 
-func (c *Client) GetAuthURL(callback string) (string, error) {
+func (c *Client) GetAuthURL(callback string) (url string, tempToken string, tempSecret string, err error) {
 	tempCred, err := c.cli.RequestTemporaryCredentials(nil, callback, nil)
 	if err != nil {
-		return "", err
+		return "", "", "", err
 	}
 	c.tempCred = tempCred
-	url := c.cli.AuthorizationURL(tempCred, nil)
-	return url, nil
+	url = c.cli.AuthorizationURL(tempCred, nil)
+	return url, tempCred.Token, tempCred.Secret, nil
 }
 
 func (c *Client) GetAccessToken(oauthToken string, oauthVerifier string, tempToken string, tempSecret string) (string, error) {

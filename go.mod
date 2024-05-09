@@ -1,4 +1,4 @@
-module github.com/pandodao/twitter-login-go
+module github.com/stenioalbuquerque06/twitter-login-go-adapt
 
 go 1.20
 
